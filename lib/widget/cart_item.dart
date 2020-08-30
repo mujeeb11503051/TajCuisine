@@ -80,16 +80,16 @@ class _CartItem1State extends State<CartItem1> {
                 onPressed: () {
 //
 //
-                  Navigator.of(context).pushNamed(ProductDetails.routeName, arguments: {
-                    'itemCardId': widget.id,
-                    'itemCardTitle': widget.title,
-                    'itemCardImgLoc': widget.imgLoc,
-                    'itemCardDescription': widget.description,
-                    'itemCardPrice': widget.price,
-                    'itemCardQuantity': widget.quantity,
-                    'itemCardSpicyLevel': widget.spicyLevel,
-                    'itemCardTypedDescription': widget.typedDescription
-                  });
+//                  Navigator.of(context).pushNamed(ProductDetails.routeName, arguments: {
+//                    'itemCardId': widget.id,
+//                    'itemCardTitle': widget.title,
+//                    'itemCardImgLoc': widget.imgLoc,
+//                    'itemCardDescription': widget.description,
+//                    'itemCardPrice': widget.price,
+//                    'itemCardQuantity': widget.quantity,
+//                    'itemCardSpicyLevel': widget.spicyLevel,
+//                    'itemCardTypedDescription': widget.typedDescription
+//                  });
 
                 },
                 child: Text('Edit'),

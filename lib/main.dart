@@ -1,8 +1,10 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:carousel_pro/carousel_pro.dart';
 import 'package:provider/provider.dart';
+import 'package:test_demo22/dummy_data.dart';
 import 'package:test_demo22/model/cart.dart';
 import 'package:test_demo22/model/drinks.dart';
+import 'package:test_demo22/model/items.dart';
 
 //my own imports
 import 'package:test_demo22/pages/cart.dart';
@@ -11,11 +13,12 @@ import 'package:test_demo22/view/cart_empty_screen.dart';
 import 'package:test_demo22/view/category_screen.dart';
 import 'package:test_demo22/view/items_screen.dart';
 import 'package:test_demo22/widget/badge.dart';
+import 'package:test_demo22/widget/item_card.dart';
 
 import 'model/indian_breads.dart';
 
 void main() {
-  runApp(DevicePreview(builder: (context) => MyApp()));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -75,10 +78,7 @@ class _HomePageState extends State<HomePage> {
               value: cart.itemCountCart.toString(),
             ),
             child: IconButton(
-                icon: Icon(
-                  Icons.shopping_cart,
-                  color: Colors.greenAccent,
-                ),
+                icon: Icon(Icons.shopping_cart, color: Colors.greenAccent,),
                 onPressed: () {
                   if (cart.items.length != 0) {
                     Navigator.push(context,
@@ -114,7 +114,8 @@ class _HomePageState extends State<HomePage> {
                       ))),
                 ),
                 FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                  },
                   child: Text(
                     'MENU',
                     style: TextStyle(fontSize: 11),
