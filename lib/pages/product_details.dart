@@ -10,18 +10,14 @@ import 'package:test_demo22/model/cart_model.dart';
 import 'package:test_demo22/pages/indian_bread.dart';
 import '../widget/round_button.dart';
 
-enum SpicyLevelNow { mild, medium, spicy, hot }
 
 class ProductDetails extends StatefulWidget {
   static const routeName = '/ProductDetails';
 
-  SpicyLevelNow _character = SpicyLevelNow.mild;
 
   //model of cart
   List<CartModel> cartData = [];
 
-  void addToCart() {}
-  bool isFavourite;
 
 
   @override
