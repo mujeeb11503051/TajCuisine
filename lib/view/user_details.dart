@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:test_demo22/services/ServiceCalls.dart';
+import 'package:test_demo22/viewmodel/UserVM.dart';
 import '../model/cart.dart';
 
 class FormScreen extends StatefulWidget {
+
+  final userVM;
+
+  //UserVM mUserVM = new UserVM();
+
   final double total = 8.99;
   final String orderType = "Carryout";
   final String weekDay = "Wednesday";
   final DateTime dateTime = DateTime.now();
   final DateTime timeDate = DateTime.now();
 
+  FormScreen({this.userVM});
   String formatDate(DateTime dateTime) {
     return '${dateTime.day}/${dateTime.month}/${dateTime.year}';
   }
@@ -178,6 +186,7 @@ class FormScreenState extends State<FormScreen> {
   Widget build(BuildContext context) {
 
     final cart = Provider.of<Cart>(context);
+    final finalUserVM = Provider.of<UserVM>(context).user;
 
     return Scaffold(
       appBar: AppBar(
@@ -267,7 +276,10 @@ class FormScreenState extends State<FormScreen> {
                           print(_phoneNumber);
                           print(paymentType);
                           print(emailFromDominos);
-                          //Send to API
+                          print(widget.userVM.user.fName);
+                          widget.userVM.addtoCart(cart.items);
+                          widget.userVM.placeOrder(widget.userVM);
+                          //Send to APi
                         },
                       ),
                     ),

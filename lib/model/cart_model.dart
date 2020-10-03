@@ -3,4 +3,6 @@ class CartModel {
   var itemPrice;
 
   CartModel({this.itemPrice, this.itemName});
+
+  var x = "";
 }

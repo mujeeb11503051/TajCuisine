@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +10,7 @@ import '../pages/product_details.dart';
 class CartItem1 extends StatefulWidget {
   final String productId;
   final String id;
+  final String catID;
   final double price;
   final double quantity;
   final String title;
@@ -16,19 +19,17 @@ class CartItem1 extends StatefulWidget {
   final String typedDescription;
   final String description;
 
-  CartItem1({
-    this.productId,
-    this.id,
-    this.price,
-    this.quantity,
-    this.title,
-    this.imgLoc,
-    this.typedDescription,
-    this.spicyLevel,
-    this.description
-  });
-
-
+  CartItem1(
+      {this.productId,
+      this.id,
+      this.catID,
+      this.price,
+      this.quantity,
+      this.title,
+      this.imgLoc,
+      this.typedDescription,
+      this.spicyLevel,
+      this.description});
 
   @override
   _CartItem1State createState() => _CartItem1State();
@@ -37,14 +38,15 @@ class CartItem1 extends StatefulWidget {
 class _CartItem1State extends State<CartItem1> {
   @override
   Widget build(BuildContext context) {
-
     final cart = Provider.of<Cart>(context);
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 5, vertical: 4),
       child: Padding(
         padding: EdgeInsets.all(8),
         child: ListTile(
-          leading: Image.asset(widget.imgLoc),
+          leading: Image.memory(
+            base64Decode(widget.imgLoc),
+          ),
           title: Row(
             children: <Widget>[
               //================================= Title of the item in the cart ======================
@@ -54,7 +56,16 @@ class _CartItem1State extends State<CartItem1> {
                 color: Colors.red,
                 icon: Icons.remove,
                 onPressed: () {
-                  cart.subtractItemCount(widget.productId, widget.price, widget.title, widget.quantity, widget.imgLoc,widget.spicyLevel,widget.typedDescription, widget.description);
+                  cart.subtractItemCount(
+                      widget.productId,
+                      widget.catID,
+                      widget.price,
+                      widget.title,
+                      widget.quantity,
+                      widget.imgLoc,
+                      widget.spicyLevel,
+                      widget.typedDescription,
+                      widget.description);
                 },
               ),
               //=================================== Quantity ============================
@@ -64,7 +75,16 @@ class _CartItem1State extends State<CartItem1> {
                 color: Colors.green,
                 icon: Icons.add,
                 onPressed: () {
-                  cart.addItemCount(widget.productId, widget.price, widget.title, widget.quantity, widget.imgLoc,widget.spicyLevel,widget.typedDescription, widget.description);
+                  cart.addItemCount(
+                      widget.productId,
+                      widget.catID,
+                      widget.price,
+                      widget.title,
+                      widget.quantity,
+                      widget.imgLoc,
+                      widget.spicyLevel,
+                      widget.typedDescription,
+                      widget.description);
                 },
               ),
             ],
@@ -90,7 +110,6 @@ class _CartItem1State extends State<CartItem1> {
 //                    'itemCardSpicyLevel': widget.spicyLevel,
 //                    'itemCardTypedDescription': widget.typedDescription
 //                  });
-
                 },
                 child: Text('Edit'),
               ),

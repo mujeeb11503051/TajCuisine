@@ -6,6 +6,9 @@ import 'package:test_demo22/pages/drinks.dart' as dddrink;
 import 'package:test_demo22/view/pdf_page.dart';
 
 class CartTotal extends StatefulWidget {
+
+  final userVM;
+  CartTotal({this.userVM});
   @override
   _CartTotalState createState() => _CartTotalState();
 }
@@ -55,13 +58,13 @@ class _CartTotalState extends State<CartTotal> {
                       color: Colors.green,
                       child: Image.asset("images/icons8-milk-carton-100.png"),
                     ),
-                    onTap: (){Navigator.of(context).push(new MaterialPageRoute(builder: (context) => dddrink.Drinks()));},
+                    onTap: (){Navigator.of(context).push(new MaterialPageRoute(builder: (context) => dddrink.Drinks(userVM: widget.userVM,)));},
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
-                    onTap: (){Navigator.of(context).push(new MaterialPageRoute(builder: (context) => dddrink.Drinks()));},
+                    onTap: (){Navigator.of(context).push(new MaterialPageRoute(builder: (context) => dddrink.Drinks(userVM: widget.userVM,)));},
                     child: Container(
                       width: 90,
                       height: 90,
@@ -73,7 +76,7 @@ class _CartTotalState extends State<CartTotal> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
-                    onTap: (){Navigator.of(context).push(new MaterialPageRoute(builder: (context) => dddrink.Drinks()));},
+                    onTap: (){Navigator.of(context).push(new MaterialPageRoute(builder: (context) => dddrink.Drinks(userVM: widget.userVM,)));},
                     child: Container(
                       width: 90,
                       height: 90,
@@ -85,7 +88,7 @@ class _CartTotalState extends State<CartTotal> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
-                    onTap: (){Navigator.of(context).push(new MaterialPageRoute(builder: (context) => dddrink.Drinks()));},
+                    onTap: (){Navigator.of(context).push(new MaterialPageRoute(builder: (context) => dddrink.Drinks(userVM: widget.userVM,)));},
                       child: Container(width: 90, height: 90, color: Colors.orange,child: Image.asset("images/icons8-milk-carton-100.png"),)),
                 ),
               ],
@@ -156,7 +159,7 @@ class _CartTotalState extends State<CartTotal> {
                                 borderRadius: BorderRadius.circular(8.0),
                                 side: BorderSide(color: Colors.red)),
                             onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute (builder: (context) => PDFScreen()));
+                              Navigator.of(context).push(MaterialPageRoute (builder: (context) => PDFScreen(userVM: widget.userVM,)));
                             },
                             color: Colors.red,
                             textColor: Colors.white,

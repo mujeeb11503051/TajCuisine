@@ -6,6 +6,7 @@ class Drinks with ChangeNotifier {
   List<IndianBread> _drinks = [
     IndianBread(
         id: "d1",
+        catId: "ddd1",
         title: "Beer",
         price: 10.0,
         imageUrl: "images/icons8-jam-100.png",
@@ -15,6 +16,7 @@ class Drinks with ChangeNotifier {
     description: " "),
     IndianBread(
         id: "d2",
+        catId: "ddd2",
         title: "Cocktail",
         price: 12.0,
         imageUrl: "images/icons8-jam-100.png",
@@ -24,6 +26,7 @@ class Drinks with ChangeNotifier {
     description: " "),
     IndianBread(
         id: "d3",
+        catId: "ddd3",
         title: "Coconut Cocktail",
         price: 11.0,
         imageUrl: "images/icons8-jam-100.png",
@@ -33,6 +36,7 @@ class Drinks with ChangeNotifier {
     description: " "),
     IndianBread(
         id: "d4",
+        catId: "ddd4",
         title: "Coffee",
         price: 14.0,
         imageUrl: "images/icons8-jam-100.png",

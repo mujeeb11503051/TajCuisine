@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_demo22/model/cart.dart';
+import 'package:test_demo22/model/items.dart';
 import 'package:test_demo22/view/cart_empty_screen.dart';
+import 'package:test_demo22/viewmodel/UserVM.dart';
 import 'package:test_demo22/widget/badge.dart';
 import '../main.dart';
 import 'cart.dart';
@@ -13,6 +17,9 @@ import '../widget/round_button.dart';
 enum SpicyLevelNow { mild, medium, spicy, hot }
 
 class ProductDetails extends StatefulWidget {
+  final UserVM userVM;
+  final menuitem;
+  ProductDetails({this.userVM, this.menuitem});
   static const routeName = '/ProductDetails';
 
   SpicyLevelNow _character = SpicyLevelNow.mild;
@@ -22,7 +29,6 @@ class ProductDetails extends StatefulWidget {
 
   void addToCart() {}
   bool isFavourite;
-
 
   @override
   _ProductDetailsState createState() => _ProductDetailsState();
@@ -40,20 +46,25 @@ class _ProductDetailsState extends State<ProductDetails> {
   String typedDescriptionText = " ";
   int count = -1;
 
-
-
   @override
   Widget build(BuildContext context) {
     final routeArgs = ModalRoute.of(context).settings.arguments as Map;
-    final product_detail_itemID = routeArgs['itemCardId'];
-    final product_detail_name = routeArgs['itemCardTitle'];
-    final double product_detail_new_price = routeArgs['itemCardPrice'];
-    final product_detail_picture = routeArgs['itemCardImgLoc'];
-    final product_detail_new_desc = routeArgs['itemCardDescription'];
-    final product_details_new_quantity = routeArgs['itemCardQuantity'];
-    String product_details_spicy_level = routeArgs['itemCardSpicyLevel'];
-    String product_details_typed_description =
-        routeArgs['itemCardTypedDescription'];
+    final product_detail_itemID =
+        this.widget.menuitem.id; // routeArgs['itemCardId'];
+    final product_detail_itemCatId =
+        this.widget.menuitem.catid; //routeArgs['itemCardCatId'];
+    final product_detail_name =
+        this.widget.menuitem.name; //routeArgs['itemCardTitle'];
+    final double product_detail_new_price =
+        this.widget.menuitem.price; //routeArgs['itemCardPrice'];
+    final product_detail_picture =
+        this.widget.menuitem.image; // routeArgs['itemCardImgLoc'];
+    final product_detail_new_desc =
+        this.widget.menuitem.description; //routeArgs['itemCardDescription'];
+    final product_details_new_quantity =
+        this.widget.menuitem.qty; // routeArgs['itemCardQuantity'];
+    String product_details_spicy_level = "";
+    String product_details_typed_description = "";
 
     final descriptionController = new TextEditingController();
     descriptionController.text = typedDescriptionText;
@@ -96,11 +107,14 @@ class _ProductDetailsState extends State<ProductDetails> {
               value: cart.itemCountCart.toString(),
             ),
             child: IconButton(
-                icon: Icon(Icons.shopping_cart, color: Colors.greenAccent,),
+                icon: Icon(
+                  Icons.shopping_cart,
+                  color: Colors.greenAccent,
+                ),
                 onPressed: () {
                   if (cart.items.length != 0) {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Cart11()));
+                        MaterialPageRoute(builder: (context) => Cart11(userVM: widget.userVM,)));
                   } else {
                     Navigator.push(
                         context,
@@ -137,7 +151,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                 ),
                 FlatButton(
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute (builder: (context) => HomePage()));
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => HomePage()));
                   },
                   child: Text(
                     'MENU',
@@ -204,13 +219,15 @@ class _ProductDetailsState extends State<ProductDetails> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Image.asset(
-                  product_detail_picture,
+                Image.memory(
+                  base64Decode(product_detail_picture),
                   height: 150,
                   width: 150,
                 ),
                 IconButton(
-                  icon: Icon(cart.isFavourite ? Icons.favorite : Icons.favorite_border),
+                  icon: Icon(cart.isFavourite
+                      ? Icons.favorite
+                      : Icons.favorite_border),
                   onPressed: () {
                     cart.toggleFavouriteStatus();
                   },
@@ -374,7 +391,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                                       });
                                       Navigator.of(context).pop(context);
                                     },
-                                    child: Text('Save', style: TextStyle(color: Colors.blue),),
+                                    child: Text(
+                                      'Save',
+                                      style: TextStyle(color: Colors.blue),
+                                    ),
                                   ),
                                 ],
                               );
@@ -415,7 +435,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           side: BorderSide(color: Colors.grey)),
                       onPressed: () {
                         Navigator.of(context).push(new MaterialPageRoute(
-                            builder: (context) => IndianBread()));
+                            builder: (context) => IndianBread(userVM: widget.userVM,)));
                       },
                       color: Colors.white,
                       textColor: Colors.black,
@@ -456,7 +476,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                         //adding to cart
                         if (count >= 0) {
                           cart.addItem(
-                              product_detail_itemID,
+                              product_detail_itemID.toString(),
+                              product_detail_itemCatId.toString(),
                               product_detail_new_price,
                               product_detail_name,
                               count.toDouble(),
@@ -470,15 +491,16 @@ class _ProductDetailsState extends State<ProductDetails> {
                         cart.printData();
                         //going to the cart screen
                         if (cart.items.length != 0) {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Cart11()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Cart11(userVM: widget.userVM,)));
                         } else {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => CartEmptyScreen()));
                         }
-
                       },
                       color: Colors.white,
                       textColor: Colors.lightGreen,
@@ -509,7 +531,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                       onPressed: () {
                         if (count >= 0) {
                           cart.addItem(
-                              product_detail_itemID,
+                              product_detail_itemID.toString(),
+                              product_detail_itemCatId.toString(),
                               product_detail_new_price,
                               product_detail_name,
                               count.toDouble(),
@@ -518,6 +541,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                               typedDescriptionText,
                               product_detail_new_desc);
                         }
+                        print(product_detail_name);
                         //Navigator.of(context).push(MaterialPageRoute (builder: (context)=> MyApp()));
                       },
                       color: Colors.lightGreen,

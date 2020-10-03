@@ -4,16 +4,19 @@ import 'package:provider/provider.dart';
 import '../model/cart.dart';
 
 class PDFScreen extends StatelessWidget {
+  final userVM;
   final String productId = "pdf1";
+  final String catID = "pdf";
   final double price = 6.99;
   final double quantity = 0;
   final String title = "Parmesan Bread Twist";
   final String imgLoc =
-      "https://cache.dominos.com/olo/6_29_1/assets/build/market/US/_en/images/img/products/larges/F_PARMT.jpg";
+      "images/w4.jpeg";
   final String spicyLevel = "";
   final String typedDescription = "";
   final String description = "";
 
+  PDFScreen({this.userVM});
   @override
   Widget build(BuildContext context) {
 
@@ -103,7 +106,7 @@ class PDFScreen extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    Image.network(imgLoc),
+                    Image.asset(imgLoc),
                     SizedBox(
                       height: 10,
                     ),
@@ -115,10 +118,10 @@ class PDFScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8.0),
                             side: BorderSide(color: Colors.white)),
                         onPressed: () {
-                          cart.addItem(productId, price, title,
+                          cart.addItem(productId, catID, price, title,
                               quantity, imgLoc, spicyLevel,typedDescription, description);
                           Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => FormScreen()));
+                              MaterialPageRoute(builder: (context) => FormScreen(userVM: userVM,)));
                         },
                         color: Colors.green,
                         textColor: Colors.lightGreen,
@@ -148,7 +151,7 @@ class PDFScreen extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => FormScreen()));
+                        MaterialPageRoute(builder: (context) => FormScreen(userVM: userVM,)));
                   },
                 )
               ],

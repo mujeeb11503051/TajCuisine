@@ -49,7 +49,7 @@ const DUMMY_CATEGORIES = const [
 const DUMMY_ITEMS = const [
   Items(
       itemId: '1',
-      categoryId: 'c1',
+      categoryId: '1',
       itemName: 'Bacon',
       itemPrice: 5,
       itemDescription:
@@ -137,7 +137,7 @@ const DUMMY_ITEMS = const [
       typedDescription: " "),
   Items(
       itemId: '9',
-      categoryId: 'c9',
+      categoryId: '1',
       itemName: 'Chocolate Spread',
       itemPrice: 3,
       itemDescription:
@@ -148,7 +148,7 @@ const DUMMY_ITEMS = const [
       typedDescription: " "),
   Items(
       itemId: '10',
-      categoryId: 'c1',
+      categoryId: '1',
       itemName: 'Coconut',
       itemPrice: 7,
       itemDescription:

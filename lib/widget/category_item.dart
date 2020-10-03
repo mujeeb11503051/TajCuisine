@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:test_demo22/view/items_screen.dart';
+import 'package:test_demo22/viewmodel/ProductCatVM.dart';
 import 'package:test_demo22/widget/item_card.dart';
 
 class CategoryItem extends StatelessWidget {
   final String id;
   final String title;
   final String imageLoc;
+
 
   CategoryItem(this.id, this.title, this.imageLoc);
 

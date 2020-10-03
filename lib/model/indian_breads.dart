@@ -6,6 +6,7 @@ class IndianBreads with ChangeNotifier {
   List<IndianBread> _breads = [
     IndianBread(
         id: "b1",
+        catId: "bbb1",
         title: "Lachcha Paratha",
         price: 10.0,
         imageUrl: "images/icons8-strawberry-100.png",
@@ -15,6 +16,7 @@ class IndianBreads with ChangeNotifier {
     description: " "),
     IndianBread(
         id: "b2",
+        catId: "bbb2",
         title: "Roti",
         price: 12.0,
         imageUrl: "images/icons8-sausages-100.png",
@@ -24,6 +26,7 @@ class IndianBreads with ChangeNotifier {
     description: " "),
     IndianBread(
         id: "b3",
+        catId: "bbb3",
         title: "Chapati",
         price: 11.0,
         imageUrl: "images/icons8-raspberry-100.png",

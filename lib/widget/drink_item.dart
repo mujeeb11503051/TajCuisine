@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_demo22/model/cart.dart';
@@ -5,6 +7,14 @@ import 'package:test_demo22/model/indian_bread.dart';
 import 'package:test_demo22/widget/round_button_indian_bread.dart';
 
 class DrinkItem extends StatefulWidget {
+  final drink;
+  final vm;
+
+  final String spicyLevel = "";
+  final String typedDes = "";
+
+  DrinkItem({this.vm, this.drink});
+
   @override
   _DrinkItemState createState() => _DrinkItemState();
 }
@@ -13,7 +23,7 @@ class _DrinkItemState extends State<DrinkItem> {
   int count = -1;
   @override
   Widget build(BuildContext context) {
-    final drinkData = Provider.of<IndianBread>(context);
+    //final drinkData = Provider.of<IndianBread>(context);
     final cart = Provider.of<Cart>(context);
 
     return Card(
@@ -24,13 +34,13 @@ class _DrinkItemState extends State<DrinkItem> {
           leading: Container(
             height: 80,
             width: 80,
-            child: Image.asset(drinkData.imageUrl),
+            child: Image.memory(base64Decode(widget.drink.image)),
           ),
-          title: Text(drinkData.title),
+          title: Text(widget.drink.name),
           subtitle: Row(
             children: <Widget>[
               Text(
-                "\$${drinkData.price}",
+                "\$${widget.drink.price}",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
               SizedBox(
@@ -41,8 +51,16 @@ class _DrinkItemState extends State<DrinkItem> {
                 icon: Icon(Icons.add_shopping_cart),
                 onPressed: () {
                   if (count >= 0) {
-                    cart.addItem(drinkData.id, drinkData.price, drinkData.title,
-                        count.toDouble(), drinkData.imageUrl, drinkData.spicyLevel,drinkData.typedDescription, drinkData.description);
+                    cart.addItem(
+                        widget.drink.id.toString(),
+                        widget.drink.catid.toString(),
+                        widget.drink.price,
+                        widget.drink.name,
+                        count.toDouble(),
+                        widget.drink.image,
+                        widget.spicyLevel,
+                        widget.typedDes,
+                        widget.drink.description);
                   }
                 },
               )

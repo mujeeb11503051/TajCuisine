@@ -9,6 +9,10 @@ import '../main.dart';
 import '../model/cart.dart';
 
 class Cart11 extends StatefulWidget {
+
+  final userVM;
+  Cart11({this.userVM});
+
   @override
   _Cart11State createState() => _Cart11State();
 }
@@ -93,7 +97,7 @@ class _Cart11State extends State<Cart11> {
             ),
             Container(
               height: 385,
-              child: CartTotal(),
+              child: CartTotal(userVM: widget.userVM,),
             )
           ],
         ));

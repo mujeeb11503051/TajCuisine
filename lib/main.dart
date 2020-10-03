@@ -8,10 +8,17 @@ import 'package:test_demo22/model/items.dart';
 
 //my own imports
 import 'package:test_demo22/pages/cart.dart';
+import 'package:test_demo22/pages/login_page.dart';
+import 'package:test_demo22/pages/menu_view_page.dart';
 import 'package:test_demo22/pages/product_details.dart';
+import 'package:test_demo22/pages/submenu_page.dart';
+import 'package:test_demo22/services/SearchAPI.dart';
 import 'package:test_demo22/view/cart_empty_screen.dart';
 import 'package:test_demo22/view/category_screen.dart';
 import 'package:test_demo22/view/items_screen.dart';
+import 'package:test_demo22/viewmodel/ProductCatVM.dart';
+import 'package:test_demo22/viewmodel/ProductVM.dart';
+import 'package:test_demo22/viewmodel/UserVM.dart';
 import 'package:test_demo22/widget/badge.dart';
 import 'package:test_demo22/widget/item_card.dart';
 
@@ -35,11 +42,16 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: Drinks(),
         ),
+        ChangeNotifierProvider.value(value: ProductListVM()),
+        ChangeNotifierProvider.value(value: SubmenuListVM()),
+        ChangeNotifierProvider.value(value: UserVM()),
+        //ChangeNotifierProvider.value(value: ProductListVM())
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
 //    home: HomePage(),
         routes: {
-          '/': (ctx) => HomePage(),
+          '/': (ctx) => LoginPage(),
           ItemsScreen.routeName: (ctx) => ItemsScreen(),
           ProductDetails.routeName: (ctx) => ProductDetails(),
         },
@@ -49,11 +61,29 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
+  final userVM;
+
+  HomePage({this.userVM});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  SearchDelegateAPI _searchDelegate;
+  dynamic _productvm;
+  @override
+  void initState() {
+    super.initState();
+    //Initializing search delegate with sorted list of English words
+    _productvm = new ProductListVM();
+    _productvm.fetchMenuItems().then((value) => {
+          //print(_productvm[0]),
+          _searchDelegate =
+              SearchDelegateAPI(_productvm.products, this.widget.userVM)
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context);
@@ -78,7 +108,10 @@ class _HomePageState extends State<HomePage> {
               value: cart.itemCountCart.toString(),
             ),
             child: IconButton(
-                icon: Icon(Icons.shopping_cart, color: Colors.greenAccent,),
+                icon: Icon(
+                  Icons.shopping_cart,
+                  color: Colors.greenAccent,
+                ),
                 onPressed: () {
                   if (cart.items.length != 0) {
                     Navigator.push(context,
@@ -114,8 +147,7 @@ class _HomePageState extends State<HomePage> {
                       ))),
                 ),
                 FlatButton(
-                  onPressed: () {
-                  },
+                  onPressed: () {},
                   child: Text(
                     'MENU',
                     style: TextStyle(fontSize: 11),
@@ -156,6 +188,9 @@ class _HomePageState extends State<HomePage> {
               child: Container(
                 height: 35,
                 child: TextField(
+                  onChanged: (value) => {
+                    showSearchPage(context, _searchDelegate, this.widget.userVM)
+                  },
                   decoration: InputDecoration(
                       labelText: 'Search',
                       border: new OutlineInputBorder(
@@ -164,9 +199,34 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          Container(height: 600, child: CategoriesScreen()),
+          Container(
+            height: 600,
+            child: ChangeNotifierProvider(
+              // builder: (_) => ProductListVM(),
+              create: (context) {
+                ProductListVM();
+              },
+              child: MenuViewPage(this.widget.userVM),
+            ),
+          ) // CategoriesScreen()
         ],
       ),
     );
   }
+}
+
+void showSearchPage(
+    BuildContext context, SearchDelegateAPI searchDelegate, dynamic vm) async {
+  final selected = await showSearch(
+    context: context,
+    delegate: searchDelegate,
+  );
+
+  if (selected != null) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => SubmenuPage(vm, menuID: selected)));
+  }
+  return null;
 }

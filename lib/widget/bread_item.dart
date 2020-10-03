@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +9,13 @@ import 'package:test_demo22/widget/round_button.dart';
 import 'package:test_demo22/widget/round_button_indian_bread.dart';
 
 class BreadItem extends StatefulWidget {
+  final bread;
+  final vm;
+
+  final String spicyLevel = "";
+  final String typedDes = "";
+
+  BreadItem({this.vm, this.bread});
   @override
   _BreadItemState createState() => _BreadItemState();
 }
@@ -16,7 +25,7 @@ class _BreadItemState extends State<BreadItem> {
 
   @override
   Widget build(BuildContext context) {
-    final bread = Provider.of<IndianBread>(context);
+    //final bread = Provider.of<IndianBread>(context);
     final cart = Provider.of<Cart>(context);
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
@@ -26,13 +35,13 @@ class _BreadItemState extends State<BreadItem> {
           leading: Container(
             height: 80,
             width: 80,
-            child: Image.asset(bread.imageUrl),
+            child: Image.memory(base64Decode(widget.bread.image)),
           ),
-          title: Text(bread.title),
+          title: Text(widget.bread.name),
           subtitle: Row(
             children: <Widget>[
               Text(
-                "\$${bread.price}",
+                "\$${widget.bread.price}",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
               SizedBox(
@@ -43,9 +52,18 @@ class _BreadItemState extends State<BreadItem> {
                 icon: Icon(Icons.add_shopping_cart),
                 onPressed: () {
                   if (count >= 0) {
-                    cart.addItem(bread.id, bread.price, bread.title,
-                        count.toDouble(), bread.imageUrl, bread.spicyLevel,bread.typedDescription, bread.description);
+                    cart.addItem(
+                        widget.bread.id.toString(),
+                        widget.bread.catid.toString(),
+                        widget.bread.price,
+                        widget.bread.name,
+                        count.toDouble(),
+                        widget.bread.image,
+                        widget.spicyLevel,
+                        widget.typedDes,
+                        widget.bread.description);
                   }
+                  print(widget.bread.id);
                 },
               )
             ],
