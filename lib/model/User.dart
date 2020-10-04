@@ -13,14 +13,15 @@ class User {
   String payMode;
   String payStatus;
   String status;
-  double tax;
-  double discount;
-  double total;
-  double netTotal;
+  String tax;
+  String discount;
+  String total;
+  String netTotal;
   String date;
   String orderDate;
   String orderTime;
   bool isActive;
+  bool optForOffer;
   //Map<String, CartItem> order;
   List<ItemResponse> itemResp;
   String delDateTime;
@@ -29,8 +30,9 @@ class User {
   User.fromJson(Map<String, dynamic> json)
       : fName = json['firstName'],
         email = json['username'],
-        isActive = json['active'];
-
+        isActive = json['active'],
+        userID = json['userId'],
+        userRole = json['roleId'].toString();
   Map toJson() {
     List<Map> items = this.itemResp != null
         ? this.itemResp.map((i) => i.toJson()).toList()
@@ -41,19 +43,19 @@ class User {
       'ordNum': "",
       'usrId': "145d32e9-0ab3-499a-a54b-b292effd72ab",
       'firstName': fName,
-      'lastName': "lName",
-      'telephone': "phone",
+      'lastName': lName,
+      'telephone': phone,
       'email': email,
-      'payMode': 1,
-      'payStatus': 1,
-      'status': 1,
-      'total': 100,
-      'tax': 5,
+      'payMode': payMode,
+      'payStatus': payStatus,
+      'status': 0,
+      'total': total,
+      'tax': tax,
       'discount': 0,
-      'netTotal': 105,
+      'netTotal': netTotal,
       'date': DateTime.now().toString(),
-      'orderDate': DateTime.now().toString(),
-      'orderTime': "21:40:00",
+      'orderDate': orderDate,
+      'orderTime': orderTime,
       'items': items
     };
   }
@@ -62,6 +64,7 @@ class User {
 class ItemResponse {
   String prdId;
   double quantity;
+  String productName;
   double price;
   String spicyLevel;
   String addInfo;
@@ -71,11 +74,11 @@ class ItemResponse {
       'id': 0,
       'ordId': 0,
       'prdId': prdId,
-      'productName': "sfd",
-      'quantity': 2,
+      'productName': productName,
+      'quantity': quantity,
       'price': price,
-      'spicyLevel': spicyLevel,
-      'addInfo': addInfo != "" ? addInfo : "",
+      'spicyLevel': spicyLevel == null ? "" : spicyLevel,
+      'addInfo': addInfo != null ? addInfo : "",
       'favorite': favorite == null ? 0 : favorite
     };
   }

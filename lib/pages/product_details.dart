@@ -19,6 +19,7 @@ enum SpicyLevelNow { mild, medium, spicy, hot }
 class ProductDetails extends StatefulWidget {
   final UserVM userVM;
   final menuitem;
+  int quantity;
   ProductDetails({this.userVM, this.menuitem});
   static const routeName = '/ProductDetails';
 

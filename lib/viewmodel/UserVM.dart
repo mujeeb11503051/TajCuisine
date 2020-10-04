@@ -33,6 +33,8 @@ class UserVM with ChangeNotifier {
     item.forEach((key, value) {
       var itemList = new ItemResponse();
       itemList.prdId = value.id;
+      itemList.productName = value.title;
+      itemList.quantity = value.quantity;
       itemList.spicyLevel = value.spicyLevel;
       itemList.price = value.price;
       itemList.addInfo = value.typedDescription;
@@ -40,6 +42,23 @@ class UserVM with ChangeNotifier {
       this.user.itemResp.add(itemList);
     });
     //this.user.itemResp.add(new ItemResponse{prdid = )})
+  }
+  void setUserDetails(List<String> userDetails )
+  {
+    if(this.user.userRole == "2"){
+      this.user.fName = userDetails[0];
+      this.user.lName = userDetails[1];
+      this.user.email = userDetails[2];
+      this.user.phone = userDetails[3];
+      this.user.payMode = userDetails[4] ;
+      this.user.total = userDetails[5];
+      this.user.tax = userDetails[6];
+      this.user.netTotal = userDetails[7];
+      this.user.payStatus = "1";
+      this.user.orderDate = userDetails[8];//user.delDateTime;
+      this.user.orderTime = userDetails[9];//user.delDateTime.split(" ")[1];
+    }
+
   }
   get getUserDetails {
     return this.user;

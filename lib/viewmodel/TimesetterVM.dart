@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_demo22/model/TimeSetter.dart';
 
-
 class TimeSetterVM {
   TimeSetter timeSetter;
   TimeSetterVM() {
@@ -37,13 +36,17 @@ class TimeSetterVM {
   }
 
   void setDateTime(DateTime dt) {
-    this.timeSetter.date = dt.day.toString().padLeft(2, "0") +
-        "-" +
-        dt.month.toString().padLeft(2, "0") +
-        "-" +
-        dt.year.toString().padLeft(2, "0");
-    this.timeSetter.hour = dt.hour.toString().padLeft(2, "0");
-    this.timeSetter.minute = dt.minute.toString().padLeft(2, "0");
+    try {
+      this.timeSetter.date = dt.day.toString().padLeft(2, "0") +
+          "-" +
+          dt.month.toString().padLeft(2, "0") +
+          "-" +
+          dt.year.toString().padLeft(2, "0");
+      this.timeSetter.hour = dt.hour.toString().padLeft(2, "0");
+      this.timeSetter.minute = dt.minute.toString().padLeft(2, "0");
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }
 

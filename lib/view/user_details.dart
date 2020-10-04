@@ -5,7 +5,6 @@ import 'package:test_demo22/viewmodel/UserVM.dart';
 import '../model/cart.dart';
 
 class FormScreen extends StatefulWidget {
-
   final userVM;
 
   //UserVM mUserVM = new UserVM();
@@ -122,7 +121,7 @@ class FormScreenState extends State<FormScreen> {
     return Column(
       children: <Widget>[
         RadioListTile(
-          value: "Pay At Store",
+          value: "1",
           title: Container(
             child: Row(
               children: <Widget>[
@@ -144,7 +143,7 @@ class FormScreenState extends State<FormScreen> {
           thickness: 4,
         ),
         RadioListTile(
-          value: "Pay Now With Debit or Credit Card",
+          value: "2",
           title: Text('Pay Now With Debit or Credit Card',
               style: TextStyle(fontSize: 14)),
           groupValue: paymentType,
@@ -184,7 +183,6 @@ class FormScreenState extends State<FormScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     final cart = Provider.of<Cart>(context);
     final finalUserVM = Provider.of<UserVM>(context).user;
 
@@ -213,7 +211,7 @@ class FormScreenState extends State<FormScreen> {
                 child: Column(
                   children: <Widget>[
                     Text(
-                      'Order Total: \$${cart.totalAmount} (${widget.orderType})',
+                      'Order Total: \$${cart.totalAmount + cart.totalTax} (${widget.orderType})',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
@@ -277,8 +275,32 @@ class FormScreenState extends State<FormScreen> {
                           print(paymentType);
                           print(emailFromDominos);
                           print(widget.userVM.user.fName);
+                          /*
+                           this.user.fName = userDetails[0];
+      this.user.lName = userDetails[1];
+      this.user.email = userDetails[2];
+      this.user.phone = userDetails[3];
+      this.user.payMode = userDetails[4];
+      this.user.total = userDetails[5] as double;
+      this.user.tax = userDetails[6] as double;
+      this.user.netTotal = userDetails[7] as double;
+                           */
+                          List<String> lstUserDet = new List<String>();
+                          lstUserDet.add(_firstName);
+                          lstUserDet.add(_lastName);
+                          lstUserDet.add(_email);
+                          lstUserDet.add(_phoneNumber);
+                          lstUserDet.add(paymentType);
+                          lstUserDet.add(cart.totalAmount.toString());
+                          lstUserDet.add(cart.totalTax.toString());
+                          lstUserDet.add(
+                              (cart.totalAmount + cart.totalTax).toString());
+                          lstUserDet.add(widget.formatDate(widget.dateTime));
+                          lstUserDet.add(widget.formatTime(widget.timeDate));
+                          widget.userVM.setUserDetails(lstUserDet);
                           widget.userVM.addtoCart(cart.items);
                           widget.userVM.placeOrder(widget.userVM);
+
                           //Send to APi
                         },
                       ),
