@@ -5,6 +5,10 @@ import 'package:test_demo22/widget/cart_item.dart';
 
 class CartScreen extends StatelessWidget {
 
+  final userVM;
+
+  CartScreen({this.userVM});
+
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context);
@@ -28,6 +32,7 @@ class CartScreen extends StatelessWidget {
                   spicyLevel: cart.items.values.toList()[i].spicyLevel,
                   typedDescription: cart.items.values.toList()[i].spicyLevel,
                   description: cart.items.values.toList()[i].description,
+                  userVm: userVM,
                     )),
           )
         ],

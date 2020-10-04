@@ -93,7 +93,7 @@ class _Cart11State extends State<Cart11> {
             ),
             Container(
               height: 310,
-              child: CartScreen(),
+              child: CartScreen(userVM: widget.userVM,),
             ),
             Container(
               height: 385,

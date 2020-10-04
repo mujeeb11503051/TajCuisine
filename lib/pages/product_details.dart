@@ -19,8 +19,8 @@ enum SpicyLevelNow { mild, medium, spicy, hot }
 class ProductDetails extends StatefulWidget {
   final UserVM userVM;
   final menuitem;
-  int quantity;
-  ProductDetails({this.userVM, this.menuitem});
+  double quantity;
+  ProductDetails({this.userVM, this.menuitem, this.quantity});
   static const routeName = '/ProductDetails';
 
   SpicyLevelNow _character = SpicyLevelNow.mild;
@@ -43,9 +43,12 @@ class _ProductDetailsState extends State<ProductDetails> {
     'Spicy Level : Hot'
   ];
   String selectedSpicyLevel = "Spicy Level : Mild";
-
+  double count = -1;
   String typedDescriptionText = " ";
-  int count = -1;
+  @override
+  void initState() {
+    count =  widget.quantity == null ? -1 : widget.quantity;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,8 +117,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                 ),
                 onPressed: () {
                   if (cart.items.length != 0) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Cart11(userVM: widget.userVM,)));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Cart11(
+                                  userVM: widget.userVM,
+                                )));
                   } else {
                     Navigator.push(
                         context,
@@ -436,7 +443,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                           side: BorderSide(color: Colors.grey)),
                       onPressed: () {
                         Navigator.of(context).push(new MaterialPageRoute(
-                            builder: (context) => IndianBread(userVM: widget.userVM,)));
+                            builder: (context) => IndianBread(
+                                  userVM: widget.userVM,
+                                )));
                       },
                       color: Colors.white,
                       textColor: Colors.black,
@@ -495,7 +504,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Cart11(userVM: widget.userVM,)));
+                                  builder: (context) => Cart11(
+                                        userVM: widget.userVM,
+                                      )));
                         } else {
                           Navigator.push(
                               context,

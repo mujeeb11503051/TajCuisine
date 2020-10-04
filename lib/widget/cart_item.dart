@@ -4,10 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_demo22/model/cart.dart';
+import 'package:test_demo22/viewmodel/ProductVM.dart';
 import 'package:test_demo22/widget/round_button_indian_bread.dart';
 import '../pages/product_details.dart';
 
 class CartItem1 extends StatefulWidget {
+  final userVm;
+
   final String productId;
   final String id;
   final String catID;
@@ -29,16 +32,36 @@ class CartItem1 extends StatefulWidget {
       this.imgLoc,
       this.typedDescription,
       this.spicyLevel,
-      this.description});
+      this.description,
+      this.userVm});
 
   @override
   _CartItem1State createState() => _CartItem1State();
 }
 
 class _CartItem1State extends State<CartItem1> {
+  var menu;
+  @override
+  void initState() {
+    // TODO: implement initState
+    try {
+      Provider.of<SubmenuListVM>(context, listen: false)
+          .fetchProduct(int.parse(widget.catID))
+          .then((value) => {});
+    } on Exception catch (e) {
+      // TODO
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    var menu;
+
     final cart = Provider.of<Cart>(context);
+    //menu = Provider.of<SubmenuListVM>(context,listen:false).productList;
+    // Provider.of<SubmenuListVM>(context, listen: false).fetchProduct().then((value) => {
+
+    // });
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 5, vertical: 4),
       child: Padding(
@@ -98,9 +121,25 @@ class _CartItem1State extends State<CartItem1> {
                     borderRadius: BorderRadius.circular(8.0),
                     side: BorderSide(color: Colors.grey)),
                 onPressed: () {
+                  var cat = Provider.of<SubmenuListVM>(context, listen: false)
+                      .productList
+                      .where((element) =>
+                          element.catid == int.parse(widget.catID));
+                  cat.forEach((element) { if(element.product.id==5)
+                    {
+                      print(element.product.name);
+                      menu = element.product;
+                    }
+                    });
 //
-//
-//                  Navigator.of(context).pushNamed(ProductDetails.routeName, arguments: {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ProductDetails(
+                                userVM: widget.userVm,
+                                menuitem: menu,
+                                quantity: widget.quantity,
+                              )));
 //                    'itemCardId': widget.id,
 //                    'itemCardTitle': widget.title,
 //                    'itemCardImgLoc': widget.imgLoc,
@@ -109,7 +148,6 @@ class _CartItem1State extends State<CartItem1> {
 //                    'itemCardQuantity': widget.quantity,
 //                    'itemCardSpicyLevel': widget.spicyLevel,
 //                    'itemCardTypedDescription': widget.typedDescription
-//                  });
                 },
                 child: Text('Edit'),
               ),
