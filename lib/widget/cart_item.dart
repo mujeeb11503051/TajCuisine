@@ -125,12 +125,13 @@ class _CartItem1State extends State<CartItem1> {
                       .productList
                       .where((element) =>
                           element.catid == int.parse(widget.catID));
-                  cat.forEach((element) { if(element.product.id==5)
-                    {
+
+                  cat.forEach((element) {
+                    if (element.product.id == int.parse(widget.id)) {
                       print(element.product.name);
                       menu = element.product;
                     }
-                    });
+                  });
 //
                   Navigator.push(
                       context,
@@ -139,6 +140,9 @@ class _CartItem1State extends State<CartItem1> {
                                 userVM: widget.userVm,
                                 menuitem: menu,
                                 quantity: widget.quantity,
+                                flag: 1,
+                                passedSpicyLevel: widget.spicyLevel,
+                                passedDescription: widget.typedDescription,
                               )));
 //                    'itemCardId': widget.id,
 //                    'itemCardTitle': widget.title,

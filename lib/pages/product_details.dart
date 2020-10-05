@@ -20,7 +20,10 @@ class ProductDetails extends StatefulWidget {
   final UserVM userVM;
   final menuitem;
   double quantity;
-  ProductDetails({this.userVM, this.menuitem, this.quantity});
+  final flag;
+  final passedSpicyLevel;
+  final passedDescription;
+  ProductDetails({this.userVM, this.menuitem, this.quantity, this.flag, this.passedSpicyLevel, this.passedDescription});
   static const routeName = '/ProductDetails';
 
   SpicyLevelNow _character = SpicyLevelNow.mild;
@@ -42,16 +45,20 @@ class _ProductDetailsState extends State<ProductDetails> {
     'Spicy Level : Spicy',
     'Spicy Level : Hot'
   ];
+
+
   String selectedSpicyLevel = "Spicy Level : Mild";
   double count = -1;
   String typedDescriptionText = " ";
   @override
   void initState() {
     count =  widget.quantity == null ? -1 : widget.quantity;
+
   }
 
   @override
   Widget build(BuildContext context) {
+
     final routeArgs = ModalRoute.of(context).settings.arguments as Map;
     final product_detail_itemID =
         this.widget.menuitem.id; // routeArgs['itemCardId'];
@@ -71,7 +78,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     String product_details_typed_description = "";
 
     final descriptionController = new TextEditingController();
-    descriptionController.text = typedDescriptionText;
+    descriptionController.text = widget.flag==null?typedDescriptionText: widget.passedDescription;
 
 //    if (product_details_typed_description.length == 1) {
 //      descriptionController.text = typedDescriptionText;
@@ -294,7 +301,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         ),
                         //==========================value====================
                         Text(
-                          (count + 1).toString().padLeft(2, "0"),
+                          (widget.flag == null ? (count + 1).toInt() : count.toInt()).toString().padLeft(2, "0"),
                           style: TextStyle(fontSize: 25),
                         ),
                         //========================== + button=================
@@ -342,7 +349,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
                           icon: Icon(Icons.arrow_right),
-                          value: selectedSpicyLevel,
+                          value: widget.flag == null? selectedSpicyLevel : widget.passedSpicyLevel,
                           items: spicyLevels.map((String dropdownStringItems) {
                             return DropdownMenuItem<String>(
                               value: dropdownStringItems,
