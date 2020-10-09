@@ -49,7 +49,7 @@ class SubmenuListVM extends ChangeNotifier {
   // ProductListVM({this.catid});
   List<ProductVM> productList;
 
-  Future<void> fetchProduct(int catid) async {
+  Future<void> fetchProduct(int catid) async{
     //var id = int.tryParse(catid);
     final submenu = await ServiceCalls().getSubmenu(catid);
     productList = submenu
@@ -57,7 +57,7 @@ class SubmenuListVM extends ChangeNotifier {
         .where((element) => element.catid == catid)
         .toList();
     notifyListeners();
-      }
+  }
   // Future<void> fetchProductByType({int typeID}) async {
   //   //var id = int.tryParse(catid);
   //   final submenu = await ServiceCalls().getSubmenu(typeID);
