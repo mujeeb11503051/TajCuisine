@@ -15,16 +15,12 @@ class IndianBread extends StatefulWidget {
 }
 
 class _IndianBreadState extends State<IndianBread> {
-   List<ProductCatVM> getIndianBread() {
-     return Provider.of<ProductListVM>(context)
-         .products
-         .where((element) => element.type == 2)
-         .toList();
-   }
-
+  List<ProductCatVM> getIndianBread() {
+     Provider.of<ProductListVM>(context,listen: false).fetchMenuItems();
+     return  Provider.of<ProductListVM>(context,listen: false).breadsVM;
+  }
   @override
   Widget build(BuildContext context) {
-    //final breads1 = updateCategory();
     var iBread = getIndianBread().first.id;
     return Scaffold(
       appBar: AppBar(

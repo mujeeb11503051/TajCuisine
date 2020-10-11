@@ -33,7 +33,7 @@ class ServiceCalls {
   Future<User> getUserdetails(String email, String passwd) async {
     //tokenStore = new FlutterSecureStorage();
     Map<String, String> headers = {"Content-type": "application/json"};
-    String json = '{username: "guest@gmail.com", password: "password"}';
+    String json = '{username: "$email", password: "$passwd"}';
     final response = await http.post('http://10.0.2.2:5000/auth/authenticate',
         headers: headers, body: json);
     if (response.statusCode == 200) {

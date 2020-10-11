@@ -58,6 +58,7 @@ class SubmenuListVM extends ChangeNotifier {
         .toList();
     notifyListeners();
   }
+
   // Future<void> fetchProductByType({int typeID}) async {
   //   //var id = int.tryParse(catid);
   //   final submenu = await ServiceCalls().getSubmenu(typeID);

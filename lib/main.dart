@@ -137,7 +137,9 @@ class _HomePageState extends State<HomePage> {
                   height: 36,
                   color: Colors.grey,
                   child: FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(0),
                           side: BorderSide(color: Colors.black)),

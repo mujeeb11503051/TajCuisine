@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:test_demo22/pages/Login_page2.dart';
+import 'package:test_demo22/pages/service_type.dart';
 import 'package:test_demo22/viewmodel/UserVM.dart';
 
 import 'TimePicker_page.dart';
@@ -52,11 +54,13 @@ class _LoginPageState extends State<LoginPage> {
                             child: OutlineButton(
                                 key: null,
                                 onPressed: () =>
-                                {Navigator.pushNamed(context, '/login')},
+                                    {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> UserLogin(userVM:userVM)))
+                                    },
                                 color: Colors.white24,
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
-                                    new BorderRadius.circular(5.0)),
+                                        new BorderRadius.circular(5.0)),
                                 borderSide: BorderSide(
                                     color: Colors.black,
                                     style: BorderStyle.solid,
@@ -73,15 +77,15 @@ class _LoginPageState extends State<LoginPage> {
                             child: OutlineButton(
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
-                                    new BorderRadius.circular(5.0)),
+                                        new BorderRadius.circular(5.0)),
                                 borderSide: BorderSide(
                                     color: Colors.black,
                                     style: BorderStyle.solid,
                                     width: 1),
                                 key: null,
                                 onPressed: () => {
-                                  //Navigator.pushNamed(context, '/timePicker')},
-                                },
+                                      //Navigator.pushNamed(context, '/timePicker')},
+                                    },
                                 color: Color.fromRGBO(242, 116, 5, 1),
                                 child: Text("Sign Up",
                                     style: TextStyle(
@@ -109,16 +113,16 @@ class _LoginPageState extends State<LoginPage> {
                               style: BorderStyle.solid,
                               width: 1),
                           onPressed: () => {
-                            //Navigator.push(context, ),
-                            userVM.getGuestAuth().then((value) =>
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            TimePickerPage(
-                                              userVM: userVM,
-                                            )))),
-                            //Navigator.pushNamed(context, '/guest2')
-                          },
+                                //Navigator.push(context, ),
+                                userVM.getGuestAuth().then((value) =>
+                                    Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                                ServiceTypePage(
+                                                  userVm: userVM,
+                                                )))),
+                                //Navigator.pushNamed(context, '/guest2')
+                              },
                           color: Color.fromRGBO(242, 116, 5, 1),
                           child: Text("Continue as Guest",
                               style: TextStyle(

@@ -26,6 +26,7 @@ class ProductListVM extends ChangeNotifier {
     products.where((element) => element.name == pattern);
     notifyListeners();
   }
+
   Future<void> fetchMenuItems([String pattern]) async {
     final mainmenu = await ServiceCalls().getMenuItems();
     products = mainmenu

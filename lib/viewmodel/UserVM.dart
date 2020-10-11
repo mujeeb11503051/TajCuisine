@@ -89,4 +89,12 @@ class UserVM with ChangeNotifier {
     //.catchError((onError) => {print("Service not available " + onError)});
     //}
   }
+
+  Future<void> getUserAuth(String userName, String passwd) async {
+    //if (ServiceCalls().storage.read(key: "Jwt") == null) {
+    this.user =
+    await ServiceCalls().getUserdetails(userName,passwd);
+    //.catchError((onError) => {print("Service not available " + onError)});
+    //}
+  }
 }
