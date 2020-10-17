@@ -1,7 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../main.dart';
+
 class LocationDetails extends StatefulWidget {
+  final userVM;
+
+  LocationDetails({this.userVM});
+
   @override
   _LocationDetailsState createState() => _LocationDetailsState();
 }
@@ -179,6 +185,12 @@ class _LocationDetailsState extends State<LocationDetails> {
                       print(_state);
                       print(_zipCode);
                       print(_deliveryInstructions);
+
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  HomePage(userVM: this.widget.userVM)));
                     },
                     child: Text(
                       'CONTINUE',

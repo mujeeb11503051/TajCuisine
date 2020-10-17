@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_demo22/pages/Login_page2.dart';
+import 'package:test_demo22/pages/RegForm_page.dart';
 import 'package:test_demo22/pages/service_type.dart';
 import 'package:test_demo22/viewmodel/UserVM.dart';
 
@@ -53,9 +54,12 @@ class _LoginPageState extends State<LoginPage> {
                             width: 150,
                             child: OutlineButton(
                                 key: null,
-                                onPressed: () =>
-                                    {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> UserLogin(userVM:userVM)))
+                                onPressed: () => {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  UserLogin(userVM: userVM)))
                                     },
                                 color: Colors.white24,
                                 shape: RoundedRectangleBorder(
@@ -84,6 +88,11 @@ class _LoginPageState extends State<LoginPage> {
                                     width: 1),
                                 key: null,
                                 onPressed: () => {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  RegFormPage()))
                                       //Navigator.pushNamed(context, '/timePicker')},
                                     },
                                 color: Color.fromRGBO(242, 116, 5, 1),

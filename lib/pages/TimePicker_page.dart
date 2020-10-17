@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:test_demo22/main.dart';
+import 'package:test_demo22/pages/loc_details.dart';
 import 'package:test_demo22/viewmodel/TimesetterVM.dart';
 import 'package:intl/intl.dart';
 
 class TimePickerPage extends StatefulWidget {
   static const String routeName = '/timePicker';
   final userVM;
-  TimePickerPage({this.userVM});
+
+  final typeOfServiceFlag;
+  TimePickerPage({this.userVM, this.typeOfServiceFlag});
   @override
   _TimePickerPageState createState() => _TimePickerPageState();
 }
@@ -99,11 +102,24 @@ class _TimePickerPageState extends State<TimePickerPage> {
                           //         MenuItemsPage(vm: this.widget.userVM),
                           //   ),
                           //)
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      HomePage(userVM: this.widget.userVM)))
+
+                          if (widget.typeOfServiceFlag != null)
+                            {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LocationDetails(
+                                            userVM: this.widget.userVM,
+                                          )))
+                            }
+                          else
+                            {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          HomePage(userVM: this.widget.userVM)))
+                            }
                         }
                     },
                     child: Text(

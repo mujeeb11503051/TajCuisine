@@ -60,7 +60,12 @@ class _ServiceTypePageState extends State<ServiceTypePage> {
                 width: 250,
                 color: Colors.red[900],
                 child: FlatButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) => TimePickerPage(
+                                userVM: widget.userVm,
+                              )));
+                    },
                     child: Text(
                       'ORDER TO GO',
                       style: TextStyle(
@@ -78,6 +83,7 @@ class _ServiceTypePageState extends State<ServiceTypePage> {
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) => TimePickerPage(
+                                typeOfServiceFlag: 1,
                                 userVM: widget.userVm,
                               )));
                     },

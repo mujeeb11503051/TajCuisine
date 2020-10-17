@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:test_demo22/pages/service_type.dart';
 
+// this class is used to invoke the page that contains the user name field and password
+
 class UserLogin extends StatefulWidget {
   static const String routeName = '/login';
   final userVM;

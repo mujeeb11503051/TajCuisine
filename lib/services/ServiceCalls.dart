@@ -1,12 +1,11 @@
 import 'dart:convert';
-import 'dart:io';
-
 //import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:test_demo22/model/ProductCategory.dart';
 import 'package:test_demo22/model/ProductModel.dart';
 import 'package:test_demo22/model/User.dart';
+import 'package:test_demo22/model/UserRegDetails..dart';
 import '../viewmodel/UserVM.dart';
 
 class ServiceCalls {
@@ -45,6 +44,28 @@ class ServiceCalls {
       throw Exception("Auth Error");
     }
   }
+
+  ///
+  /// Save/Register user
+  ///
+  Future<bool> saveUserDetails(UserRegDetails userDtls) async {
+    bool success;
+//String accesstoken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjE0NWQzMmU5LTBhYjMtNDk5YS1hNTRiLWIyOTJlZmZkNzJhYiIsIm5hbWVpZCI6Imd1ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJHdWVzdCIsIm5iZiI6MTYwMjc4NDU3NywiZXhwIjoxNjAyODcwOTc3LCJpYXQiOjE2MDI3ODQ1Nzd9.9jxr4j-Mq5zBAI5-Ar8QoqnyfPksx6Bs6CZxWJYBIX0';
+//String refreshtoken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpAVD89.eyJ1bmlxdWVfbmFtZSI6IjE0NWQzMmU5LTBhYjMtNDk5YS1hNTRiLWIyOTJlZmZkNzJhYiIsIm5hbWVpZCI6Imd1ZXN0QGdtYWlsLmNvbSIsInJvbGUiOiJHdWVzdCIsIm5iZiI6MTYwMjc4NDU3NywiZXhwIjoxNjAyODcwOTc3LCJpYXQiOjE2MDI3ODQ1Nzd9.9jxr4j-Mq5zBAI5-Ar8QoqnyfPksx6Bs6CZxWJYBIX0';
+    Map<String, String> headers = {'Content-type': 'application/json','Accept': 'application/json'
+     }; //'Authorization': 'Bearer $accesstoken',
+    String JsonVal = json.encode(userDtls);//'{username: "$email", password: "$passwd"}';
+    final response = await http.post('http://10.0.2.2:5000/user/save',
+        headers: headers, body: JsonVal);
+    if (response.statusCode == 200) {
+      success = true;
+      return  success;
+    } else {
+      print("Registration Error");
+      return success;
+    }
+  }
+
 
   Future<String> saveOrderNCheckout(UserVM userOrder) async {
     var token = await storage.read(key: 'Jwt');
