@@ -27,6 +27,8 @@ class _TimePickerPageState extends State<TimePickerPage> {
     //this.widget.user = User.instance;
     //this.widget.user = vm.user;
     this.initDT = vm.getDateTime;
+    String bH = "";
+    vm.getBusinessHours('sunday').then((value) => {bH = value});
     //this.dt = DateTime.now();
   }
 
@@ -34,7 +36,20 @@ class _TimePickerPageState extends State<TimePickerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('fsg'),
+          leading: IconButton(
+            icon: Icon(Icons.dehaze, color: Colors.black,),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          elevation: 0,
+          title: Center(
+            child: Text(
+              'Choose pick up time',
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+          backgroundColor: Colors.white,
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -85,53 +100,51 @@ class _TimePickerPageState extends State<TimePickerPage> {
                       fontWeight: FontWeight.w700,
                       fontSize: 16),
                 )),
-            Expanded(
-              flex: 1,
-              child: SizedBox(
-                  height: 10,
-                  child: RaisedButton(
-                    onPressed: () => {
-                      //push to contex and pop new page
-                      if (vm.timeSetter != null)
-                        {
-                          this.widget.userVM.setdeliveryTime(vm.getDateTime),
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) =>
-                          //         MenuItemsPage(vm: this.widget.userVM),
-                          //   ),
-                          //)
+            Container(
+              height: 60,
+              child: FlatButton(
+                onPressed: () => {
+                  //push to contex and pop new page
+                  if (vm.timeSetter != null)
+                    {
+                      this.widget.userVM.setdeliveryTime(vm.getDateTime),
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) =>
+                      //         MenuItemsPage(vm: this.widget.userVM),
+                      //   ),
+                      //)
 
-                          if (widget.typeOfServiceFlag != null)
-                            {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LocationDetails(
-                                            userVM: this.widget.userVM,
-                                          )))
-                            }
-                          else
-                            {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          HomePage(userVM: this.widget.userVM)))
-                            }
+                      if (widget.typeOfServiceFlag != null)
+                        {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LocationDetails(
+                                        userVM: this.widget.userVM,
+                                      )))
                         }
-                    },
-                    child: Text(
-                      "Save and Continue",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 16),
-                    ),
-                    color: Colors.orange[900],
-                    padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
-                  )),
+                      else
+                        {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      HomePage(userVM: this.widget.userVM)))
+                        }
+                    }
+                },
+                child: Text(
+                  "Save and Continue",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontSize: 16),
+                ),
+                color: Colors.orange[900],
+                padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
+              ),
             ),
             Container(
               margin: EdgeInsets.all(20),

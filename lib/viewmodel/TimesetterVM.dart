@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_demo22/model/TimeSetter.dart';
+import 'package:test_demo22/services/ServiceCalls.dart';
 
 class TimeSetterVM {
   TimeSetter timeSetter;
@@ -23,6 +24,11 @@ class TimeSetterVM {
 
     this.timeSetter.hour = (dt.hour.toString().padLeft(2, "0"));
     this.timeSetter.minute = dt.minute.toString().padLeft(2, "0");
+  }
+
+  Future<String> getBusinessHours(String selectedDay) async {
+    String bHours = await ServiceCalls().getbusinesshours('sunday');
+    return bHours;
   }
 
   get getDateTime {

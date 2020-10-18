@@ -187,6 +187,7 @@ class FormScreenState extends State<FormScreen> {
     final finalUserVM = Provider.of<UserVM>(context).user;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
           backgroundColor: Colors.blue,
           leading: IconButton(

@@ -17,22 +17,15 @@ class SubmenuList extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           final menuitem = this.submenu[index];
           return ListTile(
-            leading: Image.memory(
-              base64Decode(menuitem.image),
+            leading: Container(
+              height: 120,
+              width: 120,
+              child: Image.memory(
+                base64Decode(menuitem.image),
+              ),
             ),
             title: Text(menuitem.name),
-            subtitle: Text(menuitem.description),
             onTap: () => {
-              //Navigator.of(context)
-              //     .pushNamed(ProductDetails.routeName, arguments: {
-              //   'itemCardId': menuitem.id.toString(),
-              //   'itemCardCatId' : menuitem.catid.toString(),
-              //   'itemCardTitle': menuitem.name,
-              //   'itemCardImgLoc': menuitem.image,
-              //   'itemCardDescription': menuitem.description,
-              //   'itemCardPrice': menuitem.price,
-              //   'itemCardQuantity': menuitem.qty,
-              // })
               Navigator.push(
                   context,
                   MaterialPageRoute(

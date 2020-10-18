@@ -28,7 +28,6 @@ class _BreadItemState extends State<BreadItem> {
     //final bread = Provider.of<IndianBread>(context);
     final cart = Provider.of<Cart>(context);
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       child: Padding(
         padding: EdgeInsets.all(8),
         child: ListTile(
@@ -45,33 +44,43 @@ class _BreadItemState extends State<BreadItem> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
               SizedBox(
-                width: 10,
+                width: 2,
               ),
               Text("0 Cal"),
-              IconButton(
-                icon: Icon(Icons.add_shopping_cart),
-                onPressed: () {
-                  if (count >= 0) {
-                    cart.addItem(
-                        widget.bread.id.toString(),
-                        widget.bread.catid.toString(),
-                        widget.bread.price,
-                        widget.bread.name,
-                        count.toDouble(),
-                        widget.bread.image,
-                        widget.spicyLevel,
-                        widget.typedDes,
-                        widget.bread.description);
-                  }
-                  print(widget.bread.id);
-                },
+              SizedBox(
+                width: 5,
+              ),
+              Container(
+                height: 30,
+                width: 70,
+                child: RaisedButton(
+                  elevation: 6,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        side: BorderSide(color: Colors.grey)),
+                    onPressed: () {
+                      if (count >= 0) {
+                        cart.addItem(
+                            widget.bread.id.toString(),
+                            widget.bread.catid.toString(),
+                            widget.bread.price,
+                            widget.bread.name,
+                            count.toDouble(),
+                            widget.bread.image,
+                            widget.spicyLevel,
+                            widget.typedDes,
+                            widget.bread.description);
+                      }
+                    },
+                    color: Colors.green,
+                    child: Text('Save')),
               )
             ],
           ),
           trailing: Container(
             //color: Colors.blue,
             height: 70,
-            width: 120,
+            width: 110,
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.end,

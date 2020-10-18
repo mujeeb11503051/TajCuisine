@@ -93,99 +93,99 @@ class _CartItem1State extends State<CartItem1> {
           }
           if (snapshot.connectionState == ConnectionState.done) {
             return Card(
-              margin: EdgeInsets.symmetric(horizontal: 5, vertical: 4),
-              child: Padding(
-                padding: EdgeInsets.all(8),
-                child: ListTile(
-                  leading: Image.memory(
+              child: ListTile(
+                leading: Container(
+                  height: 120,
+                  width: 120,
+                  child: Image.memory(
                     base64Decode(widget.imgLoc),
                   ),
-                  title: Row(
-                    children: <Widget>[
-                      //================================= Title of the item in the cart ======================
-                      Text(widget.title),
-                      //================================= - Button ==============================
-                      RoundIconButtonIndianBread(
-                        color: Colors.red,
-                        icon: Icons.remove,
-                        onPressed: () {
-                          cart.subtractItemCount(
-                              widget.productId,
-                              widget.catID,
-                              widget.price,
-                              widget.title,
-                              widget.quantity,
-                              widget.imgLoc,
-                              widget.spicyLevel,
-                              widget.typedDescription,
-                              widget.description);
-                        },
-                      ),
-                      //=================================== Quantity ============================
-                      Text("${widget.quantity}"),
-                      //================================== + Button =============================
-                      RoundIconButtonIndianBread(
-                        color: Colors.green,
-                        icon: Icons.add,
-                        onPressed: () {
-                          cart.addItemCount(
-                              widget.productId,
-                              widget.catID,
-                              widget.price,
-                              widget.title,
-                              widget.quantity,
-                              widget.imgLoc,
-                              widget.spicyLevel,
-                              widget.typedDescription,
-                              widget.description);
-                        },
-                      ),
-                    ],
-                  ),
-                  trailing: Text("\$${widget.price}"),
-                  subtitle: Row(
-                    children: <Widget>[
-                      //=================================== Edit Button =============================
-                      FlatButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            side: BorderSide(color: Colors.grey)),
-                        onPressed: isBreadOrDrink()
-                            ? null
-                            : () {
-                          print(isBreadOrDrink());
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ProductDetails(
-                                              userVM: widget.userVm,
-                                              menuitem: menu,
-                                              quantity: widget.quantity,
-                                              flag: 1,
-                                              passedSpicyLevel:
-                                                  widget.spicyLevel,
-                                              passedDescription:
-                                                  widget.typedDescription,
-                                            )));
-                              },
-                        child: Text('Edit'),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      //====================================Remove Button ==============================
-                      FlatButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            side: BorderSide(color: Colors.grey)),
-                        onPressed: () {
-                          Provider.of<Cart>(context, listen: false)
-                              .removeItem(widget.productId);
-                        },
-                        child: Text('Remove'),
-                      )
-                    ],
-                  ),
+                ),
+                title: Row(
+                  children: <Widget>[
+                    //================================= Title of the item in the cart ======================
+                    Text(widget.title),
+                    //================================= - Button ==============================
+                    RoundIconButtonIndianBread(
+                      color: Colors.red,
+                      icon: Icons.remove,
+                      onPressed: () {
+                        cart.subtractItemCount(
+                            widget.productId,
+                            widget.catID,
+                            widget.price,
+                            widget.title,
+                            widget.quantity,
+                            widget.imgLoc,
+                            widget.spicyLevel,
+                            widget.typedDescription,
+                            widget.description);
+                      },
+                    ),
+                    //=================================== Quantity ============================
+                    Text("${widget.quantity}"),
+                    //================================== + Button =============================
+                    RoundIconButtonIndianBread(
+                      color: Colors.green,
+                      icon: Icons.add,
+                      onPressed: () {
+                        cart.addItemCount(
+                            widget.productId,
+                            widget.catID,
+                            widget.price,
+                            widget.title,
+                            widget.quantity,
+                            widget.imgLoc,
+                            widget.spicyLevel,
+                            widget.typedDescription,
+                            widget.description);
+                      },
+                    ),
+                  ],
+                ),
+                trailing: Text("\$${widget.price * widget.quantity}", style: TextStyle(fontWeight: FontWeight.bold),),
+                subtitle: Row(
+                  children: <Widget>[
+                    //=================================== Edit Button =============================
+                    FlatButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          side: BorderSide(color: Colors.grey)),
+                      onPressed: isBreadOrDrink()
+                          ? null
+                          : () {
+                        print(isBreadOrDrink());
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ProductDetails(
+                                            userVM: widget.userVm,
+                                            menuitem: menu,
+                                            quantity: widget.quantity,
+                                            flag: 1,
+                                            passedSpicyLevel:
+                                                widget.spicyLevel,
+                                            passedDescription:
+                                                widget.typedDescription,
+                                          )));
+                            },
+                      child: Text('Edit'),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    //====================================Remove Button ==============================
+                    FlatButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          side: BorderSide(color: Colors.grey)),
+                      onPressed: () {
+                        Provider.of<Cart>(context, listen: false)
+                            .removeItem(widget.productId);
+                      },
+                      child: Text('Remove'),
+                    )
+                  ],
                 ),
               ),
             );

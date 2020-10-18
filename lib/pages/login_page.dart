@@ -17,10 +17,16 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('login'),
+          leading: IconButton(icon: Icon(Icons.dehaze, color: Colors.black,),
+          onPressed: (){},),
+          elevation: 0,
+          title: Center(child: Text('Welcome to', style: TextStyle(color: Colors.black),)),
+          backgroundColor: Colors.white,
+          actions: [IconButton(icon: Icon(Icons.workspaces_filled, color: Colors.white,), onPressed: null)],
         ),
         body: Column(
           children: <Widget>[
+            SizedBox(height: 80,),
             Image.asset(
               'images/iconTaj.png',
               width: 250,

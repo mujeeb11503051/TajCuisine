@@ -88,6 +88,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.dehaze),
@@ -194,9 +195,14 @@ class _HomePageState extends State<HomePage> {
                     showSearchPage(context, _searchDelegate, this.widget.userVM)
                   },
                   decoration: InputDecoration(
-                      labelText: 'Search',
-                      border: new OutlineInputBorder(
-                          borderSide: new BorderSide(color: Colors.grey))),
+                    labelText: 'Search',
+                    border: new OutlineInputBorder(
+                        borderSide: new BorderSide(color: Colors.grey)),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Colors.deepOrangeAccent,
+                    ),
+                  ),
                 ),
               ),
             ),

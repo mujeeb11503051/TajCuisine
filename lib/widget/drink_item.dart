@@ -44,32 +44,41 @@ class _DrinkItemState extends State<DrinkItem> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
               SizedBox(
-                width: 10,
+                width: 2,
               ),
               Text("0 Cal"),
-              IconButton(
-                icon: Icon(Icons.add_shopping_cart),
-                onPressed: () {
-                  if (count >= 0) {
-                    cart.addItem(
-                        widget.drink.id.toString(),
-                        widget.drink.catid.toString(),
-                        widget.drink.price,
-                        widget.drink.name,
-                        count.toDouble(),
-                        widget.drink.image,
-                        widget.spicyLevel,
-                        widget.typedDes,
-                        widget.drink.description);
-                  }
-                },
+              SizedBox(width: 5,),
+              Container(
+                height: 30,
+                width: 70,
+                child: RaisedButton(
+                  elevation: 6,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        side: BorderSide(color: Colors.grey)),
+                    onPressed: () {
+                      if (count >= 0) {
+                        cart.addItem(
+                            widget.drink.id.toString(),
+                            widget.drink.catid.toString(),
+                            widget.drink.price,
+                            widget.drink.name,
+                            count.toDouble(),
+                            widget.drink.image,
+                            widget.spicyLevel,
+                            widget.typedDes,
+                            widget.drink.description);
+                      }
+                    },
+                    color: Colors.green,
+                    child: Text('Save')),
               )
             ],
           ),
           trailing: Container(
             //color: Colors.blue,
             height: 70,
-            width: 120,
+            width: 110,
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.end,
