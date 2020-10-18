@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:test_demo22/pages/splash_screen.dart';
 import 'package:test_demo22/services/ServiceCalls.dart';
 import 'package:test_demo22/viewmodel/UserVM.dart';
 import '../model/cart.dart';
@@ -303,6 +304,12 @@ class FormScreenState extends State<FormScreen> {
                           widget.userVM.placeOrder(widget.userVM);
 
                           //Send to APi
+
+                          //go to map waiting page
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SplashScreen()));
                         },
                       ),
                     ),
